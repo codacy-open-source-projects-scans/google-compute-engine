@@ -1,0 +1,50 @@
+Source: google-compute-engine
+Section: admin
+Priority: optional
+Maintainer: Google Cloud Team <gc-team@google.com>
+Build-Depends: debhelper (>= 10)
+Standards-Version: 3.9.8
+Homepage: https://github.com/GoogleCloudPlatform/guest-configs
+
+Package: google-compute-engine
+Architecture: all
+Depends: google-compute-engine-oslogin,
+         google-guest-agent,
+         nvme-cli,
+         networkd-dispatcher,
+         jq,
+         ${misc:Depends}
+Recommends: rsyslog | system-log-daemon
+Provides: irqbalance
+Conflicts: google-compute-engine-jessie,
+           google-compute-engine-init-jessie,
+           google-config-jessie,
+           google-compute-engine-stretch,
+           google-compute-engine-init-stretch,
+           google-config-stretch,
+           google-compute-daemon,
+           google-startup-scripts,
+           irqbalance
+Replaces: google-compute-engine-jessie,
+          google-compute-engine-init-jessie,
+          google-config-jessie,
+          google-compute-engine-stretch,
+          google-compute-engine-init-stretch,
+          google-config-stretch,
+          google-compute-daemon,
+          google-startup-scripts
+Description: Google Compute Engine guest environment.
+ This package contains scripts and configuration files for
+ features specific to the Google Compute Engine cloud environment.
+
+Package: gce-configs-trixie
+Architecture: all
+Depends: rsyslog
+         ${misc:Depends}
+Recommends: system-log-daemon
+Conflicts: google-cloud-packages-archive-keyring
+Replaces: google-cloud-packages-archive-keyring
+Description: Google Compute Engine guest environment configs for
+ Debian 13 (Trixie). This package contains additional
+ configuration files required for Debian 13 (Trixie) to function
+ as expected in the Google Compute Engine cloud environment.
