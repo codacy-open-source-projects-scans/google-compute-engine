@@ -14,9 +14,12 @@
 # Must import here to make ID_NET_NAME_PATH available to program
 IMPORT{builtin}="net_id"
 
+# Enable max number of VFs for Intel IDPF PF (8086:1452) FIRST
+SUBSYSTEM=="net", ACTION=="add", DRIVERS=="idpf", ATTRS{vendor}=="0x8086", ATTRS{device}=="0x1452", ATTR{device/sriov_numvfs}=="0", ATTR{device/sriov_numvfs}="$attr{device/sriov_totalvfs}"
+
 # Rule to rename Mellanox devices
 SUBSYSTEM=="net", ACTION=="add", DRIVERS=="mlx5_core", PROGRAM="/usr/bin/gce-nic-naming", NAME="%c"
 
 # Rule to rename RDMA devices
 SUBSYSTEM=="net", ACTION=="add", DRIVERS=="idpf", PROGRAM="/usr/bin/gce-nic-naming %E{ID_NET_DRIVER}", NAME="%c"
-SUBSYSTEM=="auxiliary", ACTION=="add", DRIVERS=="*irdma*", PROGRAM="/usr/bin/gce-nic-naming"
+SUBSYSTEM=="infiniband", ACTION=="add", DRIVERS=="idpf", PROGRAM="/usr/bin/gce-nic-naming"
